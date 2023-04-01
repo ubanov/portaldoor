@@ -1,0 +1,17 @@
+CACHE MANIFEST
+# Cache manifest version 0.1.4
+index.html
+app.js
+app-icon.png
+app-startup.png
+app.css
+portal-open.jpg
+portal-openerr.jpg
+portal-opening.jpg
+
+NETWORK:
+http://192.168.4.204/open
+http://192.168.4.204/status
+http://ubanov.synology.me:20480/open
+http://ubanov.synology.me:20480/status
+
