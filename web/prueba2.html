@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Navegador con mapa, velocidad, altitud y hora</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.7.1/dist/leaflet.css" />
+  <style>
+    #map {
+      height: 400px;
+    }
+
+    #arrow {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 30px;
+      height: 30px;
+      background-image: url('arrow.png');
+      background-size: contain;
+      background-repeat: no-repeat;
+      background-position: center;
+    }
+
+    #speed {
+      position: absolute;
+      bottom: 60px;
+      left: 20px;
+      font-size: 16px;
+    }
+
+    #altitude {
+      position: absolute;
+      bottom: 40px;
+      left: 20px;
+      font-size: 16px;
+    }
+
+    #time {
+      position: absolute;
+      bottom: 20px;
+      left: 20px;
+      font-size: 16px;
+    }
+  </style>
+</head>
+<body>
+  <div id="map"></div>
+  <div id="arrow"></div>
+  <div id="speed">Velocidad: </div>
+  <div id="altitude">Altitud: </div>
+  <div id="time">Hora: </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/leaflet@1.7.1/dist/leaflet.js"></script>
+  <script>
+    var map, arrowMarker, speedElement, altitudeElement, timeElement;
+
+    function initMap(position) {
+      var latitude = position.coords.latitude;
+      var longitude = position.coords.longitude;
+      var speed = position.coords.speed;
+      var altitude = position.coords.altitude;
+      var time = new Date().toLocaleTimeString();
+
+      map = L.map('map').setView([latitude, longitude], 13);
+
+      L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: 'Map data © <a href="https://openstreetmap.org">OpenStreetMap</a> contributors'
+      }).addTo(map);
+
+      arrowMarker = L.marker([latitude, longitude], {
+        icon: L.icon({
+          iconUrl: 'arrow.png',
+          iconSize: [30, 30],
+          iconAnchor: [15, 15]
+        })
+      }).addTo(map);
+
+      speedElement = document.getElementById('speed');
+      altitudeElement = document.getElementById('altitude');
+      timeElement = document.getElementById('time');
+
+      updateSpeed(speed);
+      updateAltitude(altitude);
+      updateTime(time);
+
+      map.on('move', rotateArrow);
+    }
+
+    function rotateArrow() {
+      var bearing = map.getBearing();
+      arrowMarker.setRotationAngle(bearing);
+    }
+
+    function updateSpeed(speed) {
+      speedElement.textContent = 'Velocidad: ' + (speed || 0) + ' m/s';
+    }
+
+    function updateAltitude(altitude) {
+      altitudeElement.textContent = 'Altitud: ' + (altitude || 0) + ' metros';
+    }
+
+    function updateTime(time) {
+      timeElement.textContent = 'Hora: ' + time;
+    }
+
+    if (navigator.geolocation) {
+      navigator.geolocation.watchPosition(function(position) {
+        var speed = position.coords.speed;
+        var altitude = position.coords.altitude;
+        var time = new Date().toLocaleTimeString();
+
+        updateSpeed(speed);
+        updateAltitude(altitude);
+        updateTime(time);
+        initMap(position);
+      });
+    } else {
+      document.getElementById("map").textContent = "El dispositivo no admite la API de geolocalización";
+    }
+  </script>
+</body>
+</html>
