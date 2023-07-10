@@ -1,12 +1,21 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Recopilación de posición del acelerómetro</title>
+  <title>Prueba de geoposicionamiento</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.7.1/dist/leaflet.css" />
+  <style>
+    #map {
+      height: 400px;
+    }
+  </style>
 </head>
 <body>
   <h1>Posición del acelerómetro:</h1>
   <p id="accelerometerData">Esperando datos...</p>
   <p id="gpsData">Esperando datos...</p>
+  <div id="map"></div>
+
+  <script src="https://cdn.jsdelivr.net/npm/leaflet@1.7.1/dist/leaflet.js"></script>
 
   <script>
     // Función para manejar la actualización de los datos del acelerómetro
@@ -31,6 +40,17 @@
       var longitude = position.coords.longitude;
       var output = "Latitud: " + latitude + ", Longitud: " + longitude;
       document.getElementById("gpsData").textContent = output;
+
+      // ahora dibujar mapa
+      var map = L.map('map').setView([latitude, longitude], 13);
+
+      L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: 'Map data © <a href="https://openstreetmap.org">OpenStreetMap</a> contributors'
+      }).addTo(map);
+
+      L.marker([latitude, longitude]).addTo(map)
+        .bindPopup('Ubicación actual')
+        .openPopup();
     }
 
     // Verificar si el dispositivo es compatible con la API de geolocalización
