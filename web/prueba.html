@@ -50,15 +50,18 @@
         attribution: 'Map data © <a href="https://openstreetmap.org">OpenStreetMap</a> contributors'
       }).addTo(map);
 
-      L.marker([latitude, longitude]).addTo(map)
-        .bindPopup('Ubicación actual')
-        .openPopup();
+      L.marker([latitude, longitude]).addTo(map);
+        //.bindPopup('Ubicación actual')
+        //.openPopup();
     }
 
     // Verificar si el dispositivo es compatible con la API de geolocalización
     if (navigator.geolocation) {
       // Obtener la posición del dispositivo
-      navigator.geolocation.getCurrentPosition(handleGPSData);
+      // navigator.geolocation.getCurrentPosition(handleGPSData);
+      navigator.geolocation.watchPosition(function(position) {
+        initMap(position);
+      });
     } else {
       document.getElementById("gpsData").textContent = "El dispositivo no admite la API de geolocalización";
     }
