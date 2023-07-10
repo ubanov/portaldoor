@@ -38,11 +38,13 @@
     function handleGPSData(position) {
       var latitude = position.coords.latitude;
       var longitude = position.coords.longitude;
-      var output = "Latitud: " + latitude + ", Longitud: " + longitude;
+      var speed = position.coords.speed;
+      var altitude = position.coords.altitude;
+      var output = "Latitud: " + latitude + ", Longitud: " + longitude + ", Speed: " + speed + ", Altitude: " + altitude;
       document.getElementById("gpsData").textContent = output;
 
       // ahora dibujar mapa
-      var map = L.map('map').setView([latitude, longitude], 13);
+      var map = L.map('map').setView([latitude, longitude], 2);
 
       L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
         attribution: 'Map data © <a href="https://openstreetmap.org">OpenStreetMap</a> contributors'
