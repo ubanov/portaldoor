@@ -40,7 +40,8 @@
       var longitude = position.coords.longitude;
       var speed = position.coords.speed;
       var altitude = position.coords.altitude;
-      var output = "Latitud: " + latitude + ", Longitud: " + longitude + ", Speed: " + speed + ", Altitude: " + altitude;
+      var time = new Date().toLocaleTimeString();
+      var output = "Latitud: " + latitude + ", Longitud: " + longitude + ", Speed: " + speed + ", Altitude: " + altitude + ", Time: " + time;
       document.getElementById("gpsData").textContent = output;
 
       // ahora dibujar mapa
