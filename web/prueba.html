@@ -60,7 +60,7 @@
       // Obtener la posición del dispositivo
       // navigator.geolocation.getCurrentPosition(handleGPSData);
       navigator.geolocation.watchPosition(function(position) {
-        initMap(position);
+        handleGPSData(position);
       });
     } else {
       document.getElementById("gpsData").textContent = "El dispositivo no admite la API de geolocalización";
