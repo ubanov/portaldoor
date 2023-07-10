@@ -13,11 +13,70 @@
   <h1>Posición del acelerómetro:</h1>
   <p id="accelerometerData">Esperando datos...</p>
   <p id="gpsData">Esperando datos...</p>
+  <button id="playPauseButton" onclick="togglePlayPause()">Cargando...</button>
+  <button onclick="next()">Siguiente canción</button>
+
+  <div id="currentTrackInfo"></div>
+
   <div id="map"></div>
 
   <script src="https://cdn.jsdelivr.net/npm/leaflet@1.7.1/dist/leaflet.js"></script>
 
   <script>
+        function openSpotify() {
+      window.location.href = "spotify://";
+    }
+
+    function togglePlayPause() {
+      var playPauseButton = document.getElementById("playPauseButton");
+
+      if (playPauseButton.innerText === "Play") {
+        play();
+      } else {
+        pause();
+      }
+    }
+
+    function play() {
+      window.location.href = "spotify://play";
+    }
+
+    function pause() {
+      window.location.href = "spotify://pause";
+    }
+
+    function next() {
+      window.location.href = "spotify://next";
+    }
+
+    function updatePlaybackStatus(isPlaying) {
+      var playPauseButton = document.getElementById("playPauseButton");
+      playPauseButton.innerText = isPlaying ? "Pause" : "Play";
+    }
+
+    function updateCurrentTrack(trackInfo) {
+      var currentTrackInfo = document.getElementById("currentTrackInfo");
+      currentTrackInfo.innerText = "Reproduciendo: " + trackInfo;
+    }
+
+    // Función de ejemplo para obtener la información de la canción actual
+    function getCurrentlyPlayingTrack() {
+      // Aquí puedes implementar la lógica para obtener la información de la canción actual desde Spotify
+      // Por simplicidad, usaremos una cadena de texto estática en este ejemplo
+      var currentTrack = "Artista - Título de la canción";
+      return currentTrack;
+    }
+
+    // Lógica de actualización periódica de la información de reproducción
+    setInterval(function() {
+      var trackInfo = getCurrentlyPlayingTrack();
+      updateCurrentTrack(trackInfo);
+
+      // Suponemos que la API de Spotify proporciona información sobre el estado de reproducción actual (isPlaying)
+      var isPlaying = true; // Obtén el estado de reproducción actual desde Spotify aquí
+      updatePlaybackStatus(isPlaying);
+    }, 1000); // Actualizar cada 3 segundos (ajusta el valor según tus nec
+    
     // Función para manejar la actualización de los datos del acelerómetro
     function handleAccelerometerData(event) {
       var accelerometerData = event.accelerationIncludingGravity;
