@@ -44,7 +44,7 @@
       document.getElementById("gpsData").textContent = output;
 
       // ahora dibujar mapa
-      var map = L.map('map').setView([latitude, longitude], 2);
+      var map = L.map('map').setView([latitude, longitude], 100);
 
       L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
         attribution: 'Map data © <a href="https://openstreetmap.org">OpenStreetMap</a> contributors'
