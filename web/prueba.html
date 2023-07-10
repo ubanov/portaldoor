@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Recopilación de posición del acelerómetro</title>
+</head>
+<body>
+  <h1>Posición del acelerómetro:</h1>
+  <p id="accelerometerData">Esperando datos...</p>
+  <p id="gpsData">Esperando datos...</p>
+
+  <script>
+    // Función para manejar la actualización de los datos del acelerómetro
+    function handleAccelerometerData(event) {
+      var accelerometerData = event.accelerationIncludingGravity;
+      var output = "X: " + accelerometerData.x + ", Y: " + accelerometerData.y + ", Z: " + accelerometerData.z;
+      document.getElementById("accelerometerData").textContent = output;
+    }
+
+    // Verificar si el dispositivo es compatible con la API de DeviceOrientation
+    if (window.DeviceOrientationEvent) {
+      // Agregar el evento de DeviceOrientation a la ventana
+      window.addEventListener('devicemotion', handleAccelerometerData, false);
+    } else {
+      document.getElementById("accelerometerData").textContent = "El dispositivo no admite la API de DeviceOrientation";
+    }
+
+
+    // Función para manejar la actualización de los datos GPS
+    function handleGPSData(position) {
+      var latitude = position.coords.latitude;
+      var longitude = position.coords.longitude;
+      var output = "Latitud: " + latitude + ", Longitud: " + longitude;
+      document.getElementById("gpsData").textContent = output;
+    }
+
+    // Verificar si el dispositivo es compatible con la API de geolocalización
+    if (navigator.geolocation) {
+      // Obtener la posición del dispositivo
+      navigator.geolocation.getCurrentPosition(handleGPSData);
+    } else {
+      document.getElementById("gpsData").textContent = "El dispositivo no admite la API de geolocalización";
+    }
+
+
+ </script>
+</body>
+</html>
+
