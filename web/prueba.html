@@ -134,7 +134,11 @@
     // Verificar si el dispositivo es compatible con la API de DeviceOrientation
     if (window.DeviceOrientationEvent) {
       // Agregar el evento de DeviceOrientation a la ventana
-      window.addEventListener('devicemotion', handleAccelerometerData, false);
+      window.addEventListener('devicemotion', function(event) {
+    // Process event.acceleration, event.accelerationIncludingGravity,
+    // event.rotationRate and event.interval
+        handleAccelerometerData(event);
+}, true);
     } else {
       document.getElementById("accelerometerData").textContent = "El dispositivo no admite la API de DeviceOrientation";
     }
