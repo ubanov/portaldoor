@@ -159,7 +159,7 @@
 
       // inicializar mapa
       var container = L.DomUtil.get('map');
-      if(container != null){
+      if(container == null){
         map = L.map('map').setView([latitude, longitude], 19);
 
         L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
