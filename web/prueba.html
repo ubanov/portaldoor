@@ -30,6 +30,7 @@
     .box1 {
       border: 1px solid black;
       border-radius: 10px;
+      box-shadow: 5px 5px 5px #888;
     }
 
     .box2 {
@@ -41,6 +42,7 @@
       flex: 1;
       border: 1px solid black;
       border-radius: 10px;
+      box-shadow: 5px 5px 5px #888;
     }
 
     @media (orientation: portrait) {
@@ -166,13 +168,15 @@
         L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
           attribution: 'Map data © <a href="https://openstreetmap.org">OpenStreetMap</a> contributors'
         }).addTo(map);
+        arrow = L.marker([latitude, longitude]).addTo(map);
+          //.bindPopup('Ubicación actual')
+        /  /.openPopup();
       } else {
         map.setView([latitude, longitude], 19);
+        arrow.setLatLng([latitude, longitude]);
       }
 
-      arrow = L.marker([latitude, longitude]).addTo(map);
-        //.bindPopup('Ubicación actual')
-        //.openPopup();
+
     }
 
     // Verificar si el dispositivo es compatible con la API de geolocalización
