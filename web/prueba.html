@@ -2,7 +2,7 @@
 <html>
 <head>
   <meta name="viewport" content="initial-scale=1.0 , minimum-scale=1.0 , maximum-scale=1.0" />
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.7.1/dist/leaflet.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.9.4/dist/leaflet.css" />
   <style>
     #map {
     }
@@ -67,7 +67,7 @@
   </div>
 
 
-  <script src="https://cdn.jsdelivr.net/npm/leaflet@1.7.1/dist/leaflet.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/leaflet@1.9.4/dist/leaflet.js"></script>
 
   <script>
     function openSpotify() {
@@ -157,12 +157,17 @@
       var output = "Latitud: " + latitude + ", Longitud: " + longitude + ", Speed: " + speed + ", Altitude: " + altitude + ", Time: " + time;
       document.getElementById("gpsData").textContent = output;
 
-      // ahora dibujar mapa
-      map = L.map('map').setView([latitude, longitude], 100);
+      // inicializar mapa
+      var container = L.DomUtil.get('map');
+      if(container != null){
+        map = L.map('map').setView([latitude, longitude], 19);
 
-      L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-        attribution: 'Map data © <a href="https://openstreetmap.org">OpenStreetMap</a> contributors'
-      }).addTo(map);
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+          attribution: 'Map data © <a href="https://openstreetmap.org">OpenStreetMap</a> contributors'
+        }).addTo(map);
+      } else {
+        map.setView([latitude, longitude], 19);
+      }
 
       arrow = L.marker([latitude, longitude]).addTo(map);
         //.bindPopup('Ubicación actual')
