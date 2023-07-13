@@ -170,9 +170,10 @@
         }).addTo(map);
         arrow = L.marker([latitude, longitude]).addTo(map);
           //.bindPopup('Ubicación actual')
-        /  /.openPopup();
+          //.openPopup();
       } else {
-        map.setView([latitude, longitude], 19);
+        //map.setView([latitude, longitude]);
+        map.flyTo([latitude, longitude]);
         arrow.setLatLng([latitude, longitude]);
       }
 
