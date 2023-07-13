@@ -147,6 +147,7 @@
     // Función para manejar la actualización de los datos GPS
     var map;
     var arrow;
+    var mapinit=0;
     
     function handleGPSData(position) {
       var latitude = position.coords.latitude;
@@ -158,8 +159,8 @@
       document.getElementById("gpsData").textContent = output;
 
       // inicializar mapa
-      var container = L.DomUtil.get('map');
-      if(container == null) {
+      if(mapinit == 0) {
+        mapinit=1;
         alert("Inicializando mapa");
         map = L.map('map').setView([latitude, longitude], 19);
 
