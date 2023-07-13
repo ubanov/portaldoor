@@ -152,6 +152,8 @@
     // Función para manejar la actualización de los datos GPS
     var map;
     var arrow;
+    var path;
+    var polyline;
     
     function handleGPSData(position) {
       var latitude = position.coords.latitude;
@@ -172,10 +174,19 @@
         arrow = L.marker([latitude, longitude]).addTo(map);
           //.bindPopup('Ubicación actual')
           //.openPopup();
-      } else {
+        path=[ [latitude,longitude] ];
+        // create a red polyline from an array of LatLng points
+        polyline = L.polyline(path, {color: 'red'}).addTo(map);
+      } else {   // cambiar lo que se muestra en la pantalla
         //map.setView([latitude, longitude]);
         map.flyTo([latitude, longitude]);
         arrow.setLatLng([latitude, longitude]);
+        path.push([latitude, longitude]);
+        polyline.setLatLngs(path);
+        //polyline.redraw();
+        
+        // zoom the map to the polyline
+        // map.fitBounds(polyline.getBounds());
       }
 
 
