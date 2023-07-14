@@ -64,6 +64,7 @@
         <p id="gpsData">Esperando datos...</p>
       </div>
       <div>
+        <button id="toggle" onclick="start()">Wake Lock is disabled</button>
         <button id="playPauseButton" onclick="openSpotify()">Open</button>
         <button onclick="next()">Siguiente canción</button>
         <div id="currentTrackInfo"></div>
@@ -73,8 +74,46 @@
 
 
   <script src="https://cdn.jsdelivr.net/npm/leaflet@1.9.4/dist/leaflet.js"></script>
-
+  <script src="https://richtr.github.io/NoSleep.js/dist/NoSleep.min.js"></script>
+  
   <script>
+    // Verificar si el dispositivo es compatible con la API de DeviceOrientation
+    function enablemotion_do() {
+      if (window.DeviceOrientationEvent) {
+        // Agregar el evento de DeviceOrientation a la ventana
+        window.addEventListener('devicemotion', function(event) {
+          // Process event.acceleration, event.accelerationIncludingGravity,
+          // event.rotationRate and event.interval
+          handleAccelerometerData(event);
+        }, true);
+      } else {
+        document.getElementById("accelerometerData").textContent = "El dispositivo no admite la API de DeviceOrientation";
+      }
+    }
+
+    function enablemotion() {
+      if (typeof DeviceMotionEvent.requestPermission === 'function') {
+        // iOS 13+
+        DeviceMotionEvent.requestPermission()
+        .then(response => {
+        if (response == 'granted') {
+          window.addEventListener('devicemotion', (e) => {
+            enablemotion_do();
+          })
+        }
+        })
+        .catch(console.error)
+      } else {
+        // non iOS 13+
+        enablemotion_do();
+      }
+            
+    }
+    function start() {
+      noSleep.enable(); // keep the screen on!
+      
+    }
+    
     function openSpotify() {
       window.location.href = "spotify://";
     }
@@ -136,17 +175,7 @@
       document.getElementById("accelerometerData").textContent = output;
     }
 
-    // Verificar si el dispositivo es compatible con la API de DeviceOrientation
-    if (window.DeviceOrientationEvent) {
-      // Agregar el evento de DeviceOrientation a la ventana
-      window.addEventListener('devicemotion', function(event) {
-    // Process event.acceleration, event.accelerationIncludingGravity,
-    // event.rotationRate and event.interval
-        handleAccelerometerData(event);
-}, true);
-    } else {
-      document.getElementById("accelerometerData").textContent = "El dispositivo no admite la API de DeviceOrientation";
-    }
+
 
 
     // Función para manejar la actualización de los datos GPS
