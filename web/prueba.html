@@ -64,7 +64,7 @@
         <p id="gpsData">Esperando datos...</p>
       </div>
       <div>
-        <button id="toggle" onclick="start()">Wake Lock is disabled</button>
+        <button id="start" onclick="start()">Start</button>
         <button id="playPauseButton" onclick="openSpotify()">Open</button>
         <button onclick="next()">Siguiente canción</button>
         <div id="currentTrackInfo"></div>
@@ -109,9 +109,13 @@
       }
             
     }
+    
+    var noSleep = new NoSleep();
+    
     function start() {
+      enablemotion();  // solicitar acceso a seguimiento movimiento
       noSleep.enable(); // keep the screen on!
-      
+      document.getElementById('start').style.visibility = 'hidden'; // ocultar boton
     }
     
     function openSpotify() {
