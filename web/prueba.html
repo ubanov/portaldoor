@@ -199,12 +199,12 @@
 
       // inicializar mapa
       if(typeof map === 'undefined') {
-        map = L.map('map').setView([latitude, longitude], 19);
+        map = L.map('map').setView([latitude, longitude], 17);
 
         L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-          attribution: 'Map data © <a href="https://openstreetmap.org">OpenStreetMap</a> contributors'
+          attribution: 'Map data © <a href="https://openstreetmap.org">OpenStreetMap</a>' // contributors'
         }).addTo(map);
-        //arrow = L.marker([latitude, longitude]).addTo(map);
+        arrow = L.marker([latitude, longitude]).addTo(map);
           //.bindPopup('Ubicación actual')
           //.openPopup();
         path=[ [latitude,longitude] ];
