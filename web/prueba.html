@@ -79,7 +79,7 @@
   <script>
     // convertir velocidad de metros/segundo a km/h
     function speed_text(vel) {
-      if(isnull(vel))
+      if(vel === null)
         return '--';
       return math.round(vel*3.6)
     }
