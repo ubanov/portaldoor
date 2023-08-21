@@ -100,7 +100,7 @@
         window.addEventListener('devicemotion', function(event) {
           // Process event.acceleration, event.accelerationIncludingGravity,
           // event.rotationRate and event.interval
-          //handleAccelerometerData(event);
+          handleAccelerometerData(event);
         }, true);
       } else {
         document.getElementById("accelerometerData").textContent = "El dispositivo no admite la API de DeviceOrientation";
@@ -192,7 +192,7 @@
     function handleAccelerometerData(event) {
       var accelerometerData = event.accelerationIncludingGravity;
       var output = "X: " + accelerometerData.x + ", Y: " + accelerometerData.y + ", Z: " + accelerometerData.z;
-      document.getElementById("accelerometerData").textContent = output;
+      //document.getElementById("accelerometerData").textContent = output;
     }
 
 
