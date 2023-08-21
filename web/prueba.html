@@ -69,8 +69,8 @@
       <div>
         <p id="accelerometerData">Esperando datos...</p>
         <p id="gpsData">Esperando datos...</p>
-        <font size="24"><p id="speedData">-- km/h</p></font>
-        <p id="timeData">--:--/p>        
+        <p id="speedData"><font size="24">--</font> km/h</p>
+        <p id="timeData"><font size="20">--:--</font></p>
       </div>
       <div>
         <button id="start" onclick="start()">Start</button>
@@ -212,9 +212,9 @@
       var time = new Date().toLocaleTimeString();
       var output = "Latitud: " + latitude + ", Longitud: " + longitude + ", Altitude: " + altitude
       document.getElementById("gpsData").textContent = output;
-      output = "Speed: " + speed_text(speed) + "km/h"
+      output = "<font size=24>" + speed_text(speed) + "</font> km/h"
       document.getElementById("speedData").textContent = output;
-      output = "Time: " + time;
+      output = "<font size=20>" + time + "</font>";
       document.getElementById("timeData").textContent = output;
       
       // inicializar mapa
