@@ -69,8 +69,8 @@
       <div>
         <p id="accelerometerData">Esperando datos...</p>
         <p id="gpsData">Esperando datos...</p>
-        <p><font size="24"><span id="speedData">--</span></font> km/h</p>
-        <p><font size="20"><span id="timeData">--:--:--</span></font></p>
+        <p><font size="20"><span id="speedData">--</span></font> km/h</p>
+        <p><font size="16"><span id="timeData">--:--</span></font></p>
       </div>
       <div>
         <button id="start" onclick="start()">Start</button>
@@ -209,7 +209,7 @@
       var longitude = position.coords.longitude;
       var speed = position.coords.speed;
       var altitude = position.coords.altitude;
-      var time = new Date().toLocaleTimeString();
+      var time = new Date().toLocaleTimeString([], {timeStyle: 'short'});
       var output = "Latitud: " + latitude + ", Longitud: " + longitude + ", Altitude: " + altitude
       document.getElementById("gpsData").textContent = output;
       output = speed_text(speed)
