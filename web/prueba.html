@@ -94,6 +94,13 @@
         return '--';
       return math.round(vel*3.6);
     }
+
+    // convertir altura en metros con un decimal
+    function altitude_text(alt) {
+      if(alt === null)
+        return '--';
+      return math.round(alt*10)/10;
+    }
     
     // Verificar si el dispositivo es compatible con la API de DeviceOrientation
     function enablemotion_do() {
@@ -213,7 +220,7 @@
       var altitude = position.coords.altitude;
       var time = new Date().toLocaleTimeString([], {timeStyle: 'short'});
       counter = counter + 1;
-      var output = "#" + counter + " Latitud: " + latitude + ", Longitud: " + longitude + ", Altitude: " + altitude
+      var output = "#" + counter + " Latitud: " + latitude + ", Longitud: " + longitude + ", Altitude: " + altitude_text(altitude);
       document.getElementById("gpsData").textContent = output;
       output = speed_text(speed);
       document.getElementById("speedData").textContent = output;
