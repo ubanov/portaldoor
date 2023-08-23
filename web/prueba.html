@@ -231,8 +231,8 @@
         // create a red polyline from an array of LatLng points
         //polyline = L.polyline(path, {color: 'red'}).addTo(map);
       } else {   // cambiar lo que se muestra en la pantalla
-        //map.setView([latitude, longitude]);
-        map.flyTo([latitude, longitude]);
+        map.setView([latitude, longitude]);
+        //map.flyTo([latitude, longitude]);
         arrow.setLatLng([latitude, longitude]);
         //path.push([latitude, longitude]);
         //polyline.setLatLngs(path);
