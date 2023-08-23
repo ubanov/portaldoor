@@ -86,11 +86,13 @@
   <script src="https://richtr.github.io/NoSleep.js/dist/NoSleep.min.js"></script>
   
   <script>
+    var counter=0;
+    
     // convertir velocidad de metros/segundo a km/h
     function speed_text(vel) {
       if(vel === null)
         return '--';
-      return math.round(vel*3.6)
+      return math.round(vel*3.6);
     }
     
     // Verificar si el dispositivo es compatible con la API de DeviceOrientation
@@ -210,11 +212,12 @@
       var speed = position.coords.speed;
       var altitude = position.coords.altitude;
       var time = new Date().toLocaleTimeString([], {timeStyle: 'short'});
-      var output = "Latitud: " + latitude + ", Longitud: " + longitude + ", Altitude: " + altitude
+      counter = counter + 1;
+      var output = "#" + counter + " Latitud: " + latitude + ", Longitud: " + longitude + ", Altitude: " + altitude
       document.getElementById("gpsData").textContent = output;
-      output = speed_text(speed)
+      output = speed_text(speed);
       document.getElementById("speedData").textContent = output;
-      output = time
+      output = time;
       document.getElementById("timeData").textContent = output;
       
       // inicializar mapa
